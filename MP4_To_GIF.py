@@ -1,2 +1,5 @@
+import pygame
 
-print("Hello World test test")
+print("Hello World")
+
+pygame.quit()
