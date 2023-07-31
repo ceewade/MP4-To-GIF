@@ -1,5 +1,11 @@
-import pygame
+import tkinter as tk
 
-print("Hello World")
 
-pygame.quit()
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        print("Hello World")
+
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
