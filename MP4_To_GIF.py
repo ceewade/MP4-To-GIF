@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, ttk
 from moviepy.editor import *
+import threading
 
 
 class App(tk.Tk):
@@ -20,13 +21,16 @@ class App(tk.Tk):
                                                        ("all files",
                                                         "*.*")))
         
-        self.button = ttk.Button(self, text='Convert To GIF', command=self.convertToGIF)
+        self.button = ttk.Button(self, text='Convert To GIF', command=self.buttonPress)
         self.button.place(relx=.5, rely=.5, anchor='center')
 
         self.label = ttk.Label(self, text="File Opened: " + self.filename)
         self.label.pack()
 
         return self.filename
+
+    def buttonPress(self):
+        threading.Thread(target=self.convertToGIF).start()
 
     def convertToGIF(self):
         print(self.filename)
