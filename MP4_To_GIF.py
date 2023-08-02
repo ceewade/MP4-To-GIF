@@ -1,34 +1,42 @@
-from tkinter import *
-from tkinter import filedialog
+import tkinter as tk
+from tkinter import filedialog, ttk
 from moviepy.editor import *
-import os
 
 
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("MP4 To GIF")
+        self.geometry('500x500')
+        self.resizable(False, False)
 
-root = Tk()
-root.geometry("400x400")
+        self.main()
 
-def convertGIF():
-    print(filename)
-    clip = VideoFileClip(filename)
-    clip.write_gif("new_gif.gif")
-
-
-filename = filedialog.askopenfilename(
+    def main(self):
+        self.filename = filedialog.askopenfilename(
                                           title = "Select a File",
                                           filetypes = (("MP4 files",
                                                         "*.MP4*"),
                                                        ("all files",
                                                         "*.*")))
+        
+        self.button = ttk.Button(self, text='Convert To GIF', command=self.convertToGIF)
+        self.button.place(relx=.5, rely=.5, anchor='center')
 
-convert_button = Button(master=root, text="Convert MP4", command=convertGIF)
-convert_button.pack()
+        self.label = ttk.Label(self, text="File Opened: " + self.filename)
+        self.label.pack()
 
-label_file_explorer = Label(master=root,
-                            text = "File Opened: " + filename,
-                            width = 100, height = 4,)
-label_file_explorer.pack() 
+        return self.filename
 
+    def convertToGIF(self):
+        print(self.filename)
+        clip = VideoFileClip(self.filename)
+        clip.write_gif("gif.gif")
 
+        self.main()
 
-root.mainloop()
+    
+
+if __name__ == '__main__':
+    app = App()
+    app.mainloop()
